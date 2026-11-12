@@ -1,0 +1,24 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9090/realms/organiza-realm
+          jwk-set-uri: http://localhost:9090/realms/organiza-realm/protocol/openid-connect/certs
+  mongodb:
+    uri: ${MONGODB_URI}
+    database: organizadb
+    auto-index-creation: true
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
+jwt:
+  auth:
+    converter:
+      resource-id: organiza
+      principle-attribute: preferred_username
+

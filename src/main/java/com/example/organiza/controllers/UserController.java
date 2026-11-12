@@ -1,32 +1,31 @@
 package com.example.organiza.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.organiza.dto.UserCreatedResponse;
-import com.example.organiza.models.UserModel;
+import com.example.organiza.dto.User;
 import com.example.organiza.service.UserService;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired 
-    private  UserService userService;
+    private final UserService userService;
 
-    @GetMapping("/id/{id}")
-    public String getUser (@PathVariable String id ) {
-        return id;
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable String id) {
+        return userService.getUserById(id);
     }
 
-    @PostMapping("/create")
-    public UserCreatedResponse onCreateUser(@RequestBody UserModel entity) {
-        return userService.onSaveUser(entity);
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 }
